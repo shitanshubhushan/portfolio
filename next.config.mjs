@@ -1,13 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '',
   images: {
     unoptimized: true,
   },
-  experimental: {
-    appDir: true,
-  },
+  basePath: '/shitanshubhushan.github.io',
+  assetPrefix: '/shitanshubhushan.github.io/',
 }
 
 export default nextConfig; 
