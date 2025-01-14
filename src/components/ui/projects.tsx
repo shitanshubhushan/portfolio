@@ -6,14 +6,14 @@ const projects = [
   {
     title: "LMAOCaT: Low-rank Mamba and gated Attention Optimization",
     description: "Recreated LoLCATs and developed a hybrid attention framework integrating Gated Linear Attention and Mamba blocks into Llama 3.2 1B, achieving O(n) inference scaling while maintaining 34.5% accuracy on HellaSwag",
-    link: "#",
+    link: "https://github.com/shitanshubhushan/LMAOCaT",
     tags: ["Machine Learning", "Python", "PyTorch"],
     date: "Oct. 2024 – Dec 2024"
   },
   {
     title: "DSA Cognitive Tutor for Binary Trees",
     description: "Engineered a Flask-based intelligent tutoring system for data structures, implementing cognitive models derived from CTA to deliver adaptive learning paths and personalized feedback using GPT",
-    link: "#",
+    link: "https://github.com/shitanshubhushan/DSA-tutor",
     tags: ["Python", "Flask", "GPT", "Machine Learning"],
     date: "Sep. 2024 – Dec 2024"
   }
@@ -24,22 +24,39 @@ interface MediumPost {
   link: string;
   pubDate: string;
   description: string;
+  thumbnail?: string;
 }
 
 export function Projects() {
   const [posts, setPosts] = useState<MediumPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchPosts() {
       try {
         const response = await fetch(
-          `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@shitanshu273`
+          `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@shitanshu273&api_key=YOUR_API_KEY`,
+          {
+            headers: {
+              'Accept': 'application/json',
+            },
+          }
         );
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog posts');
+        }
+        
         const data = await response.json();
-        setPosts((data.items || []).slice(0, 3)); // Only take the first 3 posts
+        if (data.status === 'ok') {
+          setPosts((data.items || []).slice(0, 3));
+        } else {
+          throw new Error(data.message || 'Failed to fetch blog posts');
+        }
       } catch (error) {
         console.error("Error fetching blog posts:", error);
+        setError(error instanceof Error ? error.message : 'Failed to fetch blog posts');
       } finally {
         setLoading(false);
       }
@@ -88,6 +105,10 @@ export function Projects() {
         <h2 className="text-3xl font-bold text-white mb-8">Latest Blog Posts</h2>
         {loading ? (
           <div className="text-white/70">Loading posts...</div>
+        ) : error ? (
+          <div className="text-red-400">
+            {error}
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {posts.map((post, index) => (
