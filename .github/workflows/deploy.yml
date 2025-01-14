@@ -1,8 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy Next.js site to Pages
 
 on:
   push:
-    branches: [ master ]
+    branches: ["master"]
   workflow_dispatch:
 
 permissions:
@@ -23,13 +23,18 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
           cache: 'npm'
           
-      - name: Install Dependencies
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: next
+          
+      - name: Install dependencies
         run: npm install
         
-      - name: Build Project
+      - name: Build with Next.js
         run: npm run build
         
       - name: Upload artifact
