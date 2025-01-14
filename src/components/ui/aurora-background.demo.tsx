@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React from "react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
-import Image from "next/image";
 import { NavBarDemo } from "./tubelight-navbar.demo";
 
 interface AuroraBackgroundDemoProps {
@@ -11,22 +10,13 @@ interface AuroraBackgroundDemoProps {
 }
 
 export function AuroraBackgroundDemo({ children }: AuroraBackgroundDemoProps) {
-  const [imageError, setImageError] = useState(false);
-
   return (
     <AuroraBackground>
       <div className="min-h-screen flex">
         {/* Left Sidebar - Profile */}
         <div className="w-80 border-r border-white/10 p-8 flex flex-col items-center gap-6 fixed h-screen bg-black/20 backdrop-blur-sm">
-          <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white/10">
-            <Image
-              src={imageError ? "https://github.com/shitanshubhushan.png" : "/assets/images/bio-photo.jpg"}
-              alt="Shitanshu Bhushan"
-              fill
-              className="object-cover"
-              priority
-              onError={() => setImageError(true)}
-            />
+          <div className="w-40 h-40 rounded-full bg-white/10 flex items-center justify-center text-4xl font-bold text-white">
+            SB
           </div>
           <h1 className="text-2xl font-bold text-white text-center">
             Shitanshu Bhushan

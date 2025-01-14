@@ -1,13 +1,12 @@
 {
-  "name": "shitanshubhushan.github.io",
+  "name": "portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "deploy": "sh scripts/deploy.sh"
+    "lint": "next lint"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
