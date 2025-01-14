@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import Image from "next/image";
 import { NavBarDemo } from "./tubelight-navbar.demo";
@@ -11,6 +11,8 @@ interface AuroraBackgroundDemoProps {
 }
 
 export function AuroraBackgroundDemo({ children }: AuroraBackgroundDemoProps) {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <AuroraBackground>
       <div className="min-h-screen flex">
@@ -18,11 +20,12 @@ export function AuroraBackgroundDemo({ children }: AuroraBackgroundDemoProps) {
         <div className="w-80 border-r border-white/10 p-8 flex flex-col items-center gap-6 fixed h-screen bg-black/20 backdrop-blur-sm">
           <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white/10">
             <Image
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/assets/images/bio-photo.jpg`}
+              src={imageError ? "https://github.com/shitanshubhushan.png" : "/assets/images/bio-photo.jpg"}
               alt="Shitanshu Bhushan"
               fill
               className="object-cover"
               priority
+              onError={() => setImageError(true)}
             />
           </div>
           <h1 className="text-2xl font-bold text-white text-center">
