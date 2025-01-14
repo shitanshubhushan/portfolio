@@ -16,12 +16,13 @@ export function AuroraBackgroundDemo({ children }: AuroraBackgroundDemoProps) {
       <div className="min-h-screen flex">
         {/* Left Sidebar - Profile */}
         <div className="w-80 border-r border-white/10 p-8 flex flex-col items-center gap-6 fixed h-screen bg-black/20 backdrop-blur-sm">
-          <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white/10">
+          <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white/10">
             <Image
-              src="/assests/images/bio-photo.jpg"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/assets/images/bio-photo.jpg`}
               alt="Shitanshu Bhushan"
               fill
               className="object-cover"
+              priority
             />
           </div>
           <h1 className="text-2xl font-bold text-white text-center">
@@ -60,9 +61,11 @@ export function AuroraBackgroundDemo({ children }: AuroraBackgroundDemoProps) {
 
         {/* Right Content Area */}
         <div className="ml-80 flex-1">
-          <NavBarDemo />
+          <div className="sticky top-0 z-50 flex justify-center py-6 bg-gradient-to-b from-black/20 to-transparent backdrop-blur-sm">
+            <NavBarDemo />
+          </div>
           {/* Content Grid */}
-          <div className="p-8 mt-24">
+          <div className="p-8">
             {children}
           </div>
         </div>
